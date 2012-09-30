@@ -1,10 +1,13 @@
 #include <avr/interrupt.h>
 #define BAUD 38400
 
+#define PORT PORTB
+#define DDR  DDRB
+
 void main(){
-    //set up PORTB as output
-    PORTB=0x00;
-    DDRB=0xFF;
+    //set up PORT as output
+    PORT=0x00;
+    DDR=0xFF;
 
     //initialise the USART
     unsigned int ubrr=(F_CPU/16/BAUD-1);
@@ -23,6 +26,6 @@ void main(){
 
 //handle incoming USART bytes..
 ISR(USART_RX_vect){
-    PORTB=UDR0; //..and stick them into PORTB
+    PORT=UDR0; //..and stick them into PORT
 }
 
